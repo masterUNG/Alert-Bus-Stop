@@ -61,6 +61,21 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
 
+
+//                MediaPlayer mediaPlayer = new MediaPlayer();
+//                try {
+//
+//                    mediaPlayer.setDataSource(pathAudioString);
+//                    mediaPlayer.prepare();
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//                mediaPlayer.start();
+
+
+
                 //Get Value From EditText
                 nameBusStopString = editText.getText().toString().trim();
 
@@ -121,6 +136,7 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
             Log.d("1novV1", "Result OK");
             aBoolean = false; // Record Sound OK
             uri = data.getData();
+
 
             //Find Path of Audio
             String[] strings = {MediaStore.Audio.Media.DATA};
