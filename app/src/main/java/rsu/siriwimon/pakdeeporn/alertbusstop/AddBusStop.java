@@ -1,11 +1,12 @@
 package rsu.siriwimon.pakdeeporn.alertbusstop;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private EditText editText;
     private Button button;
-    private String nameBusStopString;
+    private String nameBusStopString, pathAudioString;
     private ImageView recordImageView, playImageView;
     private boolean aBoolean = true;    // Non Record Sound
     private Uri uri;
@@ -53,7 +54,6 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
 
             }   // onClick
         });
-
 
 
         ///Button Controller
@@ -122,7 +122,22 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
             aBoolean = false; // Record Sound OK
             uri = data.getData();
 
+            //Find Path of Audio
+            String[] strings = {MediaStore.Audio.Media.DATA};
+            Cursor cursor = getContentResolver().query(uri, strings, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+                pathAudioString = cursor.getString(index);
+            } else {
+                pathAudioString = uri.getPath();
+            }
+
+            Log.d("1novV1", "pathAudioString ==> " + pathAudioString);
+
+
         } //if
+
 
     }   // onActivityResult
 
