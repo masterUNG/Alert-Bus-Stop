@@ -33,6 +33,7 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     private double latStartADouble = 13.965166;
     private double lngStartADouble = 100.587391;
     private double latBusStopADouble, lngBusStopADouble;
+    private boolean locationABoolean = true;
 
 
     @Override
@@ -97,7 +98,18 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
                             getResources().getString(R.string.title_record_sound),
                             getResources().getString(R.string.message_record_sound));
                     myAlert.myDialog();
-                }
+                } else if (locationABoolean) {
+                    //Non Marker
+                    MyAlert myAlert = new MyAlert(AddBusStop.this, R.drawable.bird48,
+                            getResources().getString(R.string.title_mark),
+                            getResources().getString(R.string.message_mark));
+                    myAlert.myDialog();
+
+                } else {
+                    //Update Value to SQLite
+                    updateValueToSQLite();
+
+                }   // if
 
             }   // onClick
         });
@@ -132,6 +144,10 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
 
     }   // Main Method
+
+    private void updateValueToSQLite() {
+
+    }   // updateValueToSQLie
 
 
     @Override
@@ -179,6 +195,8 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+
+                locationABoolean = false;
 
                 mMap.clear();
 
