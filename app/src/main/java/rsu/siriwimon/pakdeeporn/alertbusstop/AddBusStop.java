@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
 
@@ -31,6 +32,7 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
     private Uri uri;
     private double latStartADouble = 13.965166;
     private double lngStartADouble = 100.587391;
+    private double latBusStopADouble, lngBusStopADouble;
 
 
     @Override
@@ -165,6 +167,27 @@ public class AddBusStop extends FragmentActivity implements OnMapReadyCallback {
         //Create Map
         LatLng centerLatLng = new LatLng(latStartADouble, lngStartADouble);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(centerLatLng, 16));
+
+
+        //Get Event from Click Map
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                mMap.clear();
+
+                mMap.addMarker(new MarkerOptions()
+                .position(latLng));
+
+                latBusStopADouble = latLng.latitude;
+                lngBusStopADouble = latLng.longitude;
+
+                Log.d("1novV1", "Lat ==> " + latBusStopADouble);
+                Log.d("1novV1", "Lng ==> " + lngBusStopADouble);
+
+            }   // onMapClick
+        });
+
 
 
     }   // onMapReady
